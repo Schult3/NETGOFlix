@@ -3,5 +3,13 @@
 #    defaults: { _controller: 'App\Controller\DefaultController::index' }
 
 app_start:
-    path: /netgoflix/start
+    path: /netgoflix
     controller: App\Controller\StartController::entry
+    
+app_verwaltung:
+    path: /netgoflix/verwaltung
+    controller: App\Controller\VerwaltungController::entry
+    
+app_verwaltung_formular:
+    path: /netgoflix/verwaltung/formular
+    controller: App\Controller\FilmFormularController::entry

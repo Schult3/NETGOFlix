@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}NETGOFlix{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+            <link rel="stylesheet" href="{{ asset('materialize/icon.css') }}" >
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+              {% include 'menu.html.twig' %}
+              {% include 'modal.html.twig' %}
+            	
+              <a class="waves-effect waves-light btn norange" id='addFilmBtn'><i class="material-icons left">add</i>button</a>
+              
+        {% endblock %}
+        {% block javascripts %}
+            
+            <script src="{{ asset('jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('materialize/js/materialize.min.js') }}"></script>
+            <script src="{{ asset('netgoflix.js') }}"></script>
+            
+            <script>
+                $( document ).ready(function() {
+                    $('.modal').modal();
+                    
+                    $('#addFilmBtn').click(function (){
+                        openFilm();
+                    });
+                    
+                    function openFilm() {
+                        window.location.href = "{{ (path('app_verwaltung_formular')) }}";
+                    }
+
+
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>

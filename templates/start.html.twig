@@ -9,14 +9,7 @@
     </head>
     <body>
         {% block body %}
-              <nav>
-                <div class="nav-wrapper norange">
-                  <a href="#" class="brand-logo">NETGOFlix</a>
-                  <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/netgoflix/start">Start</a></li>
-                  </ul>
-                </div>
-              </nav>
+              {% include 'menu.html.twig' %}
             	
 
         {% endblock %}
