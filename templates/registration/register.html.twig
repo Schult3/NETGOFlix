@@ -1,10 +1,54 @@
 {# templates/registration/register.html.twig #}
 
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}NETGOFlix{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+            <link rel="stylesheet" href="{{ asset('materialize/icon.css') }}" >
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+              {% include 'menu.html.twig' %}
+              {% include 'modal.html.twig' %}
+            	
+            <div class="container">
+                <div class="row">
+                    <h3 class="header">Registrierung</h3>
+                    <div id="containerForm">
+                    {{ form_start(form) }}
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.plainPassword.first) }}
+                        {{ form_row(form.plainPassword.second) }}
 
-    <button type="submit">Register!</button>
-{{ form_end(form) }}
+                    {{ form_end(form) }}
+                    </div>
+                                             
+                </div>
+                <div class="row">        
+                    <a class="waves-effect waves-light btn norange" id='registerBtn'><i class="material-icons left">add</i>Registrieren</a>
+                </div>
+                <!-- Page Content goes here -->
+                
+            </div>
+            
+        {% endblock %}
+        {% block javascripts %}
+            
+            <script src="{{ asset('jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('materialize/js/materialize.min.js') }}"></script>
+            
+            <script>
+                $( document ).ready(function() {
+                    $('#registerBtn').click(function() {
+                        $('#containerForm').find('form').submit();
+                    });
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>

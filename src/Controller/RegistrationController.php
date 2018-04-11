@@ -23,11 +23,9 @@ class RegistrationController extends Controller
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            
 
             // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $user->getPassword();
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
             // 4) save the User!
