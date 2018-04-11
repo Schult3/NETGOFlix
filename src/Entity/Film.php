@@ -58,11 +58,5 @@ class Film
     
     public function setGenre($genre){
         $this->genre = $genre;
-    }
-    
-    
-    
-    
-    
-    
+    }  
 }

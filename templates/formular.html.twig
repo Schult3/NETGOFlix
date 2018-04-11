@@ -12,14 +12,18 @@
         {% block body %}
             {% include 'menu.html.twig' %}
             {% include 'modal.html.twig' %}
-            
-            <div class="container" id='formContainer' style='margin: 50px;'>
-            <!-- Page Content goes here -->
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
-                
-           <a class="waves-effect waves-light btn norange" id='btnFormSubmit' style='margin-top: 25px;' id='addFilmBtn'>Speichern</a>
+            <div class="container">
+                <h3 class="header">Film anlegen / bearbeiten</h3>
+
+                <div class="container" id='formContainer' style='margin: 50px;'>
+                <!-- Page Content goes here -->
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+                    <a class="waves-effect waves-light btn norange" id='btnFormSubmit' style='margin-top: 25px;' id='addFilmBtn'>Speichern</a>
+                </div>
             </div>
             
 

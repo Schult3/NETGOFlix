@@ -13,7 +13,58 @@
               {% include 'menu.html.twig' %}
               {% include 'modal.html.twig' %}
             	
-              <a class="waves-effect waves-light btn norange" id='addFilmBtn'><i class="material-icons left">add</i>button</a>
+            <div class="container">
+                <div class="row">
+                    <h3 class="header">Verwaltung</h3>
+                    <table class="highlight centered">
+                        <thead>
+                          <tr>
+                              <th>Titel</th>
+                              <th>Erscheinungsjahr</th>
+                              <th>Genre</th>
+                              <th>Bearbeiten</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for film in filme %}
+                                <tr>
+                                <td>{{ film.getTitel() }}</td>
+                                <td>{{ film.getJahr() }}</td>
+                                <td>{{ film.getGenre() }}</td>
+                                <td>
+                                    <a class="btn-floating btn-small waves-effect waves-light blue-grey" onclick="bearbeiteFilm('{{ film.getId() }}');"><i class="material-icons">edit</i></a>
+                                    <a class="btn-floating btn-small waves-effect waves-light red" onclick="modalLoescheFilm('{{ film.getId() }}');"><i class="material-icons">delete</i></a>
+                                </td>
+                                </tr>
+                           {% endfor %}
+                            
+                           
+                        </tbody>
+                    </table>
+                                             
+                </div>
+                <div class="row">        
+                    <a class="waves-effect waves-light btn norange" id='addFilmBtn'><i class="material-icons left">add</i>Film anlegen</a>
+                </div>
+                <!-- Page Content goes here -->
+                
+            </div>
+                           
+
+            <!-- Modal Structure -->
+            <div id="modalDelete" class="modal">
+              <div class="modal-content">
+                <h4>Film l&ouml;schen</h4>
+                <p>Wollen Sie den Film wirklich l&ouml;schen?</p>
+                <input type="hidden" id="modalLoescheFilmId" value="" />
+              </div>
+              <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="loescheFilm();">Ja</a>
+              </div>
+            </div>
+              
               
         {% endblock %}
         {% block javascripts %}
@@ -28,14 +79,26 @@
                     
                     $('#addFilmBtn').click(function (){
                         openFilm();
-                    });
-                    
-                    function openFilm() {
-                        window.location.href = "{{ (path('app_verwaltung_formular')) }}";
-                    }
-
+                    });                   
 
                 });
+                
+                function openFilm() {
+                   window.location.href = "{{ (path('app_verwaltung_formular')) }}";
+                }
+                    
+                function bearbeiteFilm(filmid) {
+                    window.location.href = "{{ (path('app_verwaltung_formular')) }}" + "?filmid=" + filmid;
+                }
+                
+                function modalLoescheFilm(filmid) {
+                    $('#modalLoescheFilmId').val(filmid);
+                    $('#modalDelete').modal('open');
+                }
+                
+                function loescheFilm() {
+                    window.location.href = "{{ (path('app_verwaltung_formular')) }}" + "?filmid=" + $('#modalLoescheFilmId').val() + "&loeschen=true";
+                }
             </script>
         {% endblock %}
     </body>
