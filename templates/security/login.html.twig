@@ -1,22 +1,74 @@
 {# templates/security/login.html.twig #}
-{# ... you will probably extend your base template, like base.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}NETGOFlix Anmeldung{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+            <link rel="stylesheet" href="{{ asset('materialize/icon.css') }}" >
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+              {% include 'menu.html.twig' %}
+              {% include 'modal.html.twig' %}
+            	
+            <div class="container">
+                <div class="row">
+                    <h3 class="header">Anmeldung</h3>
+                    <div id="containerForm">
+                    {% if error %}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+                    <form action="{{ path('login') }}" method="post">
+                        <label for="username">Benutzername:</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                        <label for="password">Passwort:</label>
+                        <input type="password" id="password" name="_password" />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+                        {#
+                            If you want to control the URL the user
+                            is redirected to on success (more details below)
+                            <input type="hidden" name="_target_path" value="/account" />
+                        #}
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
-
-    <button type="submit">login</button>
-</form>
+                    </form>
+                    </div>
+                                             
+                </div>
+                <div class="row">        
+                    <a class="waves-effect waves-light btn norange" id='loginBtn'><i class="material-icons left">verified_user</i>Anmelden</a>
+                    <a class="waves-effect waves-light btn norange" href="/register">Registrieren</a>
+                </div>
+                <!-- Page Content goes here -->
+                
+            </div>
+            
+        {% endblock %}
+        {% block javascripts %}
+            
+            <script src="{{ asset('jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('materialize/js/materialize.min.js') }}"></script>
+            
+            <script>
+                $( document ).ready(function() {
+                    $('#loginBtn').click(function() {
+                        $('#containerForm').find('form').submit();
+                    });
+                    
+                    $('body').keydown(function(event){ 
+                        var keyCode = (event.keyCode ? event.keyCode : event.which);   
+                        if (keyCode == 13) {
+                            $('#containerForm').find('form').submit();
+                        }
+                    });
+                });
+                
+                
+            </script>
+        {% endblock %}
+    </body>
+</html>

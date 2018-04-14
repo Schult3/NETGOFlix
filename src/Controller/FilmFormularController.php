@@ -41,6 +41,9 @@ class FilmFormularController extends Controller
             ->add('genre', ChoiceType::class, array(
                 'choices'  => $choices
                 ))
+            ->add('Imdbid', TextType::class)
+            ->add('PosterUrl', TextType::class)
+
             //->add('save', SubmitType::class, array('label' => 'Speichern'))
             ->getForm();
         

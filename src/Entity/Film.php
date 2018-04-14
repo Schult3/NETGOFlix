@@ -31,6 +31,16 @@ class Film
      */
     private $genre;
     
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $imdbid;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $posterurl;
+    
     
     public function getId(){ 
         return $this->id;
@@ -48,6 +58,14 @@ class Film
         return $this->genre;
     }
     
+    public function getImdbid(){ 
+        return $this->imdbid;
+    }
+    
+    public function getPosterurl(){ 
+        return $this->posterurl;
+    }
+    
     public function setTitel($titel){
         $this->titel = $titel;
     }
@@ -58,5 +76,13 @@ class Film
     
     public function setGenre($genre){
         $this->genre = $genre;
-    }  
+    }
+    
+    public function setImdbid($imdbid){
+        $this->imdbid = $imdbid;
+    } 
+    
+    public function setPosterurl($posterurl){
+        $this->posterurl = $posterurl;
+    } 
 }

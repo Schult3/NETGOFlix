@@ -23,6 +23,7 @@
 
 
                     <a class="waves-effect waves-light btn norange" id='btnFormSubmit' style='margin-top: 25px;' id='addFilmBtn'>Speichern</a>
+                    <a class="waves-effect waves-light btn norange" id='btnSearchFilm' style='margin-top: 25px;' id='addFilmBtn'><i class="material-icons left">search</i>Film suchen</a>
                 </div>
             </div>
             
@@ -43,6 +44,27 @@
                     $('#btnFormSubmit').click(function() {
                         $('#formContainer').find('form').submit();
                     });
+                    
+                    $('#btnSearchFilm').click(function() {
+                        $.ajax({
+                            url: "http://www.omdbapi.com/?i=" + $('#form_Imdbid').val() + "&apikey=7d6ee2c0",
+                            type: "GET",
+                            dataType: "json",
+                        })
+                        .done(function( data ) {
+                            if(data["Response"] == "False"){
+                                M.toast({html: data["Error"], classes: 'red'});
+                            } else {
+                                $('#form_titel').val(data["Title"]);
+                                $('#form_jahr').val(data["Year"]);
+                                $('#form_PosterUrl').val(data["Poster"]);
+                                console.log(data);
+                            }
+                            
+                        });
+                    });
+                    
+                    M.toast({html: 'Eingabe der IMDB ID erleichtert das einf&uuml;gen'})
                 });
             </script>
         {% endblock %}

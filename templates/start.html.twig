@@ -5,14 +5,82 @@
         <title>{% block title %}NETGOFlix{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+            <link rel="stylesheet" href="{{ asset('netgoflix.css') }}">
         {% endblock %}
     </head>
     <body>
         {% block body %}
               {% include 'menu.html.twig' %}
             	
+        <div class="container">
+            
+            
+            {% for genre in filme %}
+                <div class="row">
+                <h3 class="header">{{ genre["GENRE_TITEL"] }}</h3>
+                
+                {% for film in genre["FILME"] %}
+                    <div class="col s12 m3">
+                        <div class="card hoverable">
+                          <div class="card-image">
+                            <img src="{{ film["POSTERURL"] }}">
+                            <span class="card-title">{{ film["TITEL"] }}</span>
+                          </div>
+                          <div class="card-content">
+                            <p>Erscheinungsjahr: {{ film["JAHR"] }}</p>
+                          </div>
+                          <div class="card-action">
+                              {% if film["FLG_FAVORIT"] == true %}
+                                  <div class="heart click-heart animated-heart" filmid="{{ film["ID"] }}"></div>
+                              {% else %}
+                                  <div class="heart click-heart" filmid="{{ film["ID"] }}"></div>
+                              {% endif %}
+                          </div>
+                        </div>
+                    </div>
+                
+                {% endfor %}
+                
+                </div>
+                <div class="divider"></div>
+            {% endfor %}
 
+            <!-- Page Content goes here -->
+
+        </div>
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        
+            <script src="{{ asset('jquery-3.3.1.min.js') }}"></script>
+            
+            <script>
+                $( document ).ready(function() {
+                    $('.click-heart').on('click', function(){
+                        $(this).toggleClass('animated-heart');
+                        if($(this).hasClass('animated-heart')){
+                            setFavorit($(this).attr("filmid"), true);
+                        } else {
+                            setFavorit($(this).attr("filmid"), false);
+                        }
+                    });                  
+                });
+                
+                function setFavorit(filmid, flgFavorit) {
+                    console.log(filmid);
+                    console.log(flgFavorit);
+                    $.ajax({
+                        url: "{{ path('app_favorit') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {"filmid": filmid, "flgfavorit": flgFavorit}
+                    })
+                    .done(function( data ) {
+                      console.log(data);
+                    });
+                }
+                
+            </script>
+        
+        {% endblock %}
     </body>
 </html>

@@ -13,3 +13,10 @@ app_verwaltung:
 app_verwaltung_formular:
     path: /netgoflix/verwaltung/formular
     controller: App\Controller\FilmFormularController::entry
+    
+logout:
+    path: /logout
+    
+app_favorit:
+    path: /netgoflix/favorit
+    controller: App\Controller\FavoritController::entry

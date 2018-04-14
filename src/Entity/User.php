@@ -24,14 +24,14 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Assert\NotBlank()
      */
     private $username;
@@ -105,6 +105,10 @@ class User implements UserInterface
 
     public function getRoles() {
         return array('ROLE_USER');
+    }
+    
+    public function getId(){
+        return $this->id;
     }
 
     // other methods, including security methods like getRoles()
