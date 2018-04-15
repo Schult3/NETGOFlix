@@ -13,17 +13,28 @@
               {% include 'menu.html.twig' %}
             	
         <div class="container">
-            
+            <div class="row">
+                <h3 class="header">Suche</h3>
+                <div class="input-field col s6">
+                    <input placeholder="Titel..." id="inputFilmSuche" type="text" class="validate">
+                    <label for="inputFilmSuche">Suche nach Titel</label>
+                </div>
+            </div>
             
             {% for genre in filme %}
-                <div class="row">
+                <div class="row genrerow">
                 <h3 class="header">{{ genre["GENRE_TITEL"] }}</h3>
                 
+                
                 {% for film in genre["FILME"] %}
-                    <div class="col s12 m3">
+                    <div class="col s12 m3 filmcard" filmtitel="{{ film["TITEL"] }}">
                         <div class="card hoverable">
                           <div class="card-image">
-                            <img src="{{ film["POSTERURL"] }}">
+                                {% if film["POSTERURL"] != "" %}
+                                    <img style='height: 160px; object-fit: cover;' src="{{ film["POSTERURL"] }}">
+                                {% else %}
+                                    <img src="sample-1.jpg">
+                                {% endif %}
                             <span class="card-title">{{ film["TITEL"] }}</span>
                           </div>
                           <div class="card-content">
@@ -52,6 +63,7 @@
         {% block javascripts %}
         
             <script src="{{ asset('jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('materialize/js/materialize.min.js') }}"></script>
             
             <script>
                 $( document ).ready(function() {
@@ -62,7 +74,20 @@
                         } else {
                             setFavorit($(this).attr("filmid"), false);
                         }
-                    });                  
+                    });    
+                    
+                    $('#inputFilmSuche').on('keyup', function() {
+                       strSuche = $(this).val().toUpperCase();
+                       $.each($('.filmcard'), function() {
+                           if($(this).attr('filmtitel').toUpperCase().includes(strSuche)) {
+                               $(this).show();
+                           } else {
+                               $(this).hide();
+                           }
+                       });
+                       
+                       toggleGenres();
+                    });
                 });
                 
                 function setFavorit(filmid, flgFavorit) {
@@ -76,6 +101,22 @@
                     })
                     .done(function( data ) {
                       console.log(data);
+                    });
+                }
+                
+                function toggleGenres() {
+                    $.each($('.genrerow'), function(){
+                        flgGenreAusblenden = true;
+                        console.log("\n");
+                        $.each($(this).find('.filmcard'), function(){
+
+                            if($(this).css('display') != "none"){
+                                flgGenreAusblenden = false;
+                                return false;
+                            }
+                        });
+
+                        flgGenreAusblenden ? $(this).hide() : $(this).show();
                     });
                 }
                 

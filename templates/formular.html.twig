@@ -57,8 +57,18 @@
                             } else {
                                 $('#form_titel').val(data["Title"]);
                                 $('#form_jahr').val(data["Year"]);
-                                $('#form_PosterUrl').val(data["Poster"]);
-                                console.log(data);
+                                $('#form_PosterUrl').val("http://img.omdbapi.com/?i=" +$('#form_Imdbid').val() +"&apikey=7d6ee2c0");
+                                //$('#form_genre').filter(function () { return $(this).html() == data["Genre"].split(", ")[0]; }).val();
+                                
+                                $('#form_genre option:contains(' + data["Genre"].split(", ")[0] + ')').each(function(){
+                                    if ($(this).text() == data["Genre"].split(", ")[0]) {
+                                        $(this).attr('selected', 'selected');
+                                        return false;
+                                    }
+                                    return true;
+                                });
+                                
+                                $('select').formSelect();
                             }
                             
                         });

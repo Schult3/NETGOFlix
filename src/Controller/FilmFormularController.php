@@ -51,6 +51,7 @@ class FilmFormularController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
             $film = $form->getData();
+            $film->setUserid($this->getUser()->getId());
             
             $entityManager->persist($film);
 

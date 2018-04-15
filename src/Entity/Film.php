@@ -41,6 +41,11 @@ class Film
      */
     private $posterurl;
     
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $userid;
+    
     
     public function getId(){ 
         return $this->id;
@@ -66,6 +71,10 @@ class Film
         return $this->posterurl;
     }
     
+    public function getUserid(){
+        return $this->userid;
+    }
+    
     public function setTitel($titel){
         $this->titel = $titel;
     }
@@ -85,4 +94,8 @@ class Film
     public function setPosterurl($posterurl){
         $this->posterurl = $posterurl;
     } 
+    
+    public function setUserid($userid){
+        $this->userid = $userid;
+    }
 }

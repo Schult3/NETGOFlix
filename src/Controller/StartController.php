@@ -27,13 +27,15 @@ class StartController extends Controller
 
             if(count($favorit) > 0) {
                 $filme[0]["GENRE_TITEL"] = "Favoriten";
-                $filme[0]["FILME"][] = array("TITEL" => $f->getTitel(), "JAHR" => $f->getJahr(), "ID" => $f->getId(), "FLG_FAVORIT" => true);
+                $filme[0]["FILME"][] = array("TITEL" => $f->getTitel(), "JAHR" => $f->getJahr(), "ID" => $f->getId(), "FLG_FAVORIT" => true, "POSTERURL" => $f->getPosterurl());
             }
             
             $filme[$f->getGenre()]["GENRE_TITEL"] = $repositoryGenre->find($f->getGenre())->getGenre();
-            $filme[$f->getGenre()]["FILME"][] = array("TITEL" => $f->getTitel(), "JAHR" => $f->getJahr(), "ID" => $f->getId(), "FLG_FAVORIT" => count($favorit) > 0, "POSTERURL" => "http://img.omdbapi.com/?i=" .$f->getImdbid() ."&apikey=7d6ee2c0");
+            $filme[$f->getGenre()]["FILME"][] = array("TITEL" => $f->getTitel(), "JAHR" => $f->getJahr(), "ID" => $f->getId(), "FLG_FAVORIT" => count($favorit) > 0, "POSTERURL" => $f->getPosterurl());
                 
         }
+        
+        ksort($filme);
        
 
 
