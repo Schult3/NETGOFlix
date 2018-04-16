@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Validator\Constraints as AcmeAssert;
 
 /**
  * @ORM\Entity
@@ -27,6 +28,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=191, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @AcmeAssert\ContainsNetgo
      */
     private $email;
 
