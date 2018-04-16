@@ -10,5 +10,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ContainsNetgo extends Constraint
 {
-    public $message = 'Die Adresse "{{ string }}" muss @netgo.de enthalten';
+    public $message = 'Die Adresse "{{ string }}" muss @netgo.de enthalten!';
 }
